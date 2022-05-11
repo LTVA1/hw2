@@ -11,9 +11,6 @@
 #define MASK_WIDTH 3
 #define MASK_HEIGHT 3
 
-#define MASK_ANCHOR_X 1
-#define MASK_ANCHOR_Y 1
-
 typedef uint64_t Uint64;
 typedef int64_t Sint64;
 typedef uint32_t Uint32;
@@ -105,7 +102,7 @@ int main(int argc, char *argv[])
 		std::cout << "\n";
 	}
 
-	std::cout << "contour";
+	std::cout << "contour\n\n";
 
 	delete[] imglob_dil;
 	delete[] imglob_er;
