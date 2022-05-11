@@ -2,9 +2,6 @@
 #include <fstream>
 #include <iostream>
 
-#define MASK_ANCHOR_X 1
-#define MASK_ANCHOR_Y 1
-
 extern int glob_width;
 extern int glob_height;
 
@@ -53,8 +50,11 @@ int ImageProcess::updateMask(const Img& mask)
 {
 	this->mask = new Img(mask.srcImg, mask.width, mask.height);
 
-	mask_anchor_x = MASK_ANCHOR_X;
-	mask_anchor_y = MASK_ANCHOR_Y;
+	//mask->c_x = mask->c_x;
+	//mask->c_y = mask->c_y;
+
+	this->mask->c_x = mask.c_x;
+	this->mask->c_y = mask.c_y;
 
 	if(this->mask == nullptr)
 	{
@@ -109,7 +109,7 @@ int ImageProcess::loadImgFromFile(const char* fileName, int format)
 
 	while(fscanf(in, "%c", &c) != EOF)
 	{
-		if(c != '\n' && counter < fwidth * fheight) //поддерживает оба формата
+		if(c != '\n' && c != '\r' && counter < fwidth * fheight) //поддерживает оба формата
 		{
 			srcImg->srcImg[counter] = c == '0' ? 0 : 1;
 
@@ -190,9 +190,9 @@ int ImageProcess::dilotation()
 			{
 				for(int l = 0; l < mask->width; ++l)
 				{
-					if(srcImg->width * i + j - (srcImg->width * (mask_anchor_y - k) + (mask_anchor_x - l)) >= 0 && srcImg->width * i + j - (srcImg->width * (mask_anchor_y - k) + (mask_anchor_x - l)) < srcImg->width * srcImg->height)
+					if(srcImg->width * i + j - (srcImg->width * (mask->c_y - k) + (mask->c_x - l)) >= 0 && srcImg->width * i + j - (srcImg->width * (mask->c_y - k) + (mask->c_x - l)) < srcImg->width * srcImg->height)
 					{
-						if(srcImg->srcImg[srcImg->width * i + j - (srcImg->width * (mask_anchor_y - k) + (mask_anchor_x - l))] == mask->srcImg[k * mask->width + l] && mask->srcImg[k * mask->width + l] == 1)
+						if(srcImg->srcImg[srcImg->width * i + j - (srcImg->width * (mask->c_y - k) + (mask->c_x - l))] == mask->srcImg[k * mask->width + l] && mask->srcImg[k * mask->width + l] == 1)
 						{
 							counter++;
 						}
@@ -243,9 +243,9 @@ int ImageProcess::erosion()
 			{
 				for(int l = 0; l < mask->width; ++l)
 				{
-					if(srcImg->width * i + j - (srcImg->width * (mask_anchor_y - k) + (mask_anchor_x - l)) >= 0 && srcImg->width * i + j - (srcImg->width * (mask_anchor_y - k) + (mask_anchor_x - l)) < srcImg->width * srcImg->height)
+					if(srcImg->width * i + j - (srcImg->width * (mask->c_y - k) + (mask->c_x - l)) >= 0 && srcImg->width * i + j - (srcImg->width * (mask->c_y - k) + (mask->c_x - l)) < srcImg->width * srcImg->height)
 					{
-						if(srcImg->srcImg[srcImg->width * i + j - (srcImg->width * (mask_anchor_y - k) + (mask_anchor_x - l))] == mask->srcImg[k * mask->width + l] && mask->srcImg[k * mask->width + l] == 1)
+						if(srcImg->srcImg[srcImg->width * i + j - (srcImg->width * (mask->c_y - k) + (mask->c_x - l))] == mask->srcImg[k * mask->width + l] && mask->srcImg[k * mask->width + l] == 1)
 						{
 							counter++;
 						}

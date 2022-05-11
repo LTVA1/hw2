@@ -8,6 +8,9 @@ struct Img
 	int width;
 	int height;
 
+	int c_x;
+	int c_y;
+
 	Img()
 	{
 		srcImg = nullptr;

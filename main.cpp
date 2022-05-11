@@ -55,6 +55,9 @@ int main(int argc, char *argv[])
 
 	Img* massk = new Img(mask, MASK_WIDTH, MASK_HEIGHT);
 
+	massk->c_x = 1;
+	massk->c_y = 1;
+
 	imgproc->updateMask(*(massk));
 
 	delete massk;
