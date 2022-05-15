@@ -267,7 +267,7 @@ std::list<std::list<std::pair<int, int>>> ImageProcess::getListContours()
 	{
 		if ((processedImg->srcImg[i] == srcImg->srcImg[i] ? 0 : 1) == 1)
 		{
-			auto contour = is_pixel_in_list(i);
+			std::vector<int>* contour = is_pixel_in_list(i);
 
 			if (contour != nullptr)
 			{
@@ -278,20 +278,20 @@ std::list<std::list<std::pair<int, int>>> ImageProcess::getListContours()
 
 			std::vector<std::vector<int>*> contours_connect;
 
-			auto coords = std::make_pair(i - i / srcImg->width * srcImg->width, i / srcImg->width);
+			std::pair<int, int> coords = std::make_pair(i - i / srcImg->width * srcImg->width, i / srcImg->width);
 
 			for (int y = -1; y <= 1; y++) //все 8 соседних пикселей
 			{
 				for (int x = -1; x <= 1; x++)
 				{
-					auto pix_coord_in_arr = (y + coords.second) * srcImg->width + x + coords.first;
+					int pix_coord_in_arr = (y + coords.second) * srcImg->width + x + coords.first;
 
 					if ((x == 0) && (y == 0)) //не смотрим на центральный пиксель, нужны только соседние
 					{
 						continue;
 					}
 
-					auto cont = is_pixel_in_list(pix_coord_in_arr);
+					std::vector<int>* cont = is_pixel_in_list(pix_coord_in_arr);
 
 					if (cont != nullptr)
 					{
@@ -343,7 +343,7 @@ std::list<std::list<std::pair<int, int>>> ImageProcess::getListContours()
 	{
 		std::list<std::pair<int, int>> countor_final;
 
-		auto contour = contours[i];
+		std::vector<int> contour = contours[i];
 
 		for (int j = 0; j < contour.size(); j++)
 		{
@@ -360,7 +360,7 @@ std::vector<int> *ImageProcess::is_pixel_in_list(int index)
 {
 	for (int i = 0; i < contours.size(); ++i)
 	{
-		auto contour = contours[i];
+		std::vector<int> contour = contours[i];
 
 		if ((std::find(contour.begin(), contour.end(), index) != contour.end()))
 		{

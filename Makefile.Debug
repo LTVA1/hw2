@@ -563,6 +563,35 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../../Qt/6.2.4/mingw_64/include/QtWidgets/qtabwidget.h \
 		../../../../Qt/6.2.4/mingw_64/include/QtGui/qicon.h \
 		ui_mainwindow.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtCore/QVariant \
+		../../../../Qt/6.2.4/mingw_64/include/QtWidgets/QApplication \
+		../../../../Qt/6.2.4/mingw_64/include/QtWidgets/qapplication.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtCore/qcoreapplication.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtCore/qeventloop.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtCore/qcoreapplication_platform.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtCore/qfuture.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtCore/qfutureinterface.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtCore/qmutex.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtCore/qresultstore.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtCore/qfuture_impl.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtCore/qthreadpool.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtCore/qthread.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtCore/qdeadlinetimer.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtCore/qelapsedtimer.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtCore/qrunnable.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtCore/qexception.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtCore/qpromise.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtGui/qguiapplication.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtGui/qinputmethod.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtCore/qlocale.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtGui/qguiapplication_platform.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtWidgets/QMenuBar \
+		../../../../Qt/6.2.4/mingw_64/include/QtWidgets/qmenubar.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtWidgets/qmenu.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtGui/qaction.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtWidgets/QStatusBar \
+		../../../../Qt/6.2.4/mingw_64/include/QtWidgets/qstatusbar.h \
+		../../../../Qt/6.2.4/mingw_64/include/QtWidgets/QWidget \
 		../../../../Qt/6.2.4/mingw_64/include/QtGui/QImage
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/mainwindow.o mainwindow.cpp
 

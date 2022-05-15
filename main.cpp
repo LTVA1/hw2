@@ -19,15 +19,6 @@
 #define MASK_ANCHOR_X 1
 #define MASK_ANCHOR_Y 1
 
-typedef uint64_t Uint64;
-typedef int64_t Sint64;
-typedef uint32_t Uint32;
-typedef int32_t Sint32;
-typedef uint16_t Uint16;
-typedef int16_t Sint16;
-typedef uint8_t Uint8;
-typedef int8_t Sint8;
-
 int* imglob_dil;
 int* imglob_er;
 int* imglob_src;
@@ -121,7 +112,7 @@ int main(int argc, char *argv[])
 
 	QPixmap p = QPixmap::fromImage(myImage);
 
-	myLabel.setPixmap(p.scaled(myImage.width() * 2, myImage.height() * 2, Qt::KeepAspectRatio));
+	myLabel.setPixmap(p.scaled(myImage.width() * 3, myImage.height() * 3, Qt::KeepAspectRatio));
 
 	myLabel.show();
 
