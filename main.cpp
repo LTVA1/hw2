@@ -1,4 +1,9 @@
-#include <QCoreApplication>
+#include "mainwindow.h"
+
+#include <QApplication>
+#include <QImage>
+#include <QLabel>
+
 #include <iostream>
 #include <fstream>
 #include <stdio.h>
@@ -10,6 +15,9 @@
 
 #define MASK_WIDTH 3
 #define MASK_HEIGHT 3
+
+#define MASK_ANCHOR_X 1
+#define MASK_ANCHOR_Y 1
 
 typedef uint64_t Uint64;
 typedef int64_t Sint64;
@@ -34,7 +42,7 @@ const int glob_mask[MASK_WIDTH][MASK_HEIGHT] = {
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
+    QApplication a(argc, argv);
 
 	ImageProcess* imgproc = new ImageProcess();
 
@@ -52,60 +60,60 @@ int main(int argc, char *argv[])
 
 	Img* massk = new Img(mask, MASK_WIDTH, MASK_HEIGHT);
 
-	massk->c_x = 1;
-	massk->c_y = 1;
-
 	imgproc->updateMask(*(massk));
 
 	delete massk;
-
-	//std::cout << "glob " << glob_width << " " << glob_height;
 
 	imglob_dil = new int[glob_width * glob_height];
 	imglob_er = new int[glob_width * glob_height];
 	imglob_src = new int[glob_width * glob_height];
 
+	//======================================================================================
+	//зачёт без зачёта
+
 	imgproc->dilotation();
-	imgproc->erosion();
+
+	std::list<std::list<std::pair<int /*x*/,int /*y*/>>> test = imgproc->getListContours();
+
+	QImage myImage;
+	QImage *temp = new QImage(std::max(glob_width, 50), std::max(glob_height, 50), QImage::Format_Indexed8);
+	myImage = *temp;
+
+	myImage.setColor(0, qRgb(255, 255, 255)); //белый фон
+	myImage.setColor(1, qRgb(0, 0, 0)); //чёрное изображение
+	myImage.setColor(2, qRgb(255, 0, 0)); //красный контур
+
+	for(int i = 0; i < myImage.width(); ++i)
+	{
+		for(int j = 0; j < myImage.height(); ++j)
+		{
+			myImage.scanLine(i)[j] = 0;
+		}
+	}
 
 	for(int i = 0; i < glob_height; ++i)
 	{
 		for(int j = 0; j < glob_width; ++j)
 		{
-			std::cout << imglob_dil[glob_width * i + j];
-		}
+			if(imglob_src[i * glob_width + j] == 1)
+			{
+				myImage.scanLine(i)[j] = 1;
+			}
 
-		std::cout << "\n";
+			if(imglob_src[i * glob_width + j] != imglob_dil[i * glob_width + j])
+			{
+				myImage.scanLine(i)[j] = 2;
+			}
+		}
 	}
 
-	std::cout << "dilotated\n\n";
+	QLabel myLabel;
 
-	for(int i = 0; i < glob_height; ++i)
-	{
-		for(int j = 0; j < glob_width; ++j)
-		{
-			std::cout << imglob_er[glob_width * i + j];
-		}
+	QPixmap p = QPixmap::fromImage(myImage);
 
-		std::cout << "\n";
-	}
+	myLabel.setPixmap(p.scaled(myImage.width() * 2, myImage.height() * 2, Qt::KeepAspectRatio));
 
-	std::cout << "eroded\n\n";
+	myLabel.show();
 
-	for(int i = 0; i < glob_height; ++i)
-	{
-		for(int j = 0; j < glob_width; ++j)
-		{
-			std::cout << (imglob_er[glob_width * i + j] == imglob_dil[glob_width * i + j] ? "0" : "1");
-		}
-
-		std::cout << "\n";
-	}
-
-	std::cout << "contour\n\n";
-
-	delete[] imglob_dil;
-	delete[] imglob_er;
-	delete imgproc;
     return a.exec();
 }

@@ -1,15 +1,14 @@
 #pragma once
 
 #include <stdlib.h>
+#include <list>
+#include <vector>
 
 struct Img
 {
 	int* srcImg;
 	int width;
 	int height;
-
-	int c_x;
-	int c_y;
 
 	Img()
 	{
@@ -65,6 +64,10 @@ class ImageProcess
 		int mask_anchor_y;
 		int mask_anchor_x;
 
+		std::vector<std::vector<int>> contours; //промежуточное нормальное хранилище контуров
+
+		std::vector<int>* is_pixel_in_list(int index);
+
 	public:
 		//здесь нельзя объявлять функции и переменные
 		/**/
@@ -93,4 +96,9 @@ class ImageProcess
 	*/
 		int loadImgFromFile(const char* fileName, int format = 1);
 		int saveImgToFile(const char* fileName, int format = 1);
+
+		/*на зачёт без зачёта*/
+		/*вернуть список контуров (2 и более пикселей, включая диагональные)*/
+		std::list<std::list<std::pair<int /*x*/,int /*y*/>>> getListContours();
 };
+
