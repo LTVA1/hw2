@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
 
 	imgproc->dilotation();
 
-	std::list<std::list<std::pair<int /*x*/,int /*y*/>>> test = imgproc->getListContours();
+	//std::list<std::list<std::pair<int /*x*/,int /*y*/>>> test = imgproc->getListContours();
 
 	QImage myImage;
 	QImage *temp = new QImage(std::max(glob_width, 50), std::max(glob_height, 50), QImage::Format_Indexed8);
@@ -89,6 +89,16 @@ int main(int argc, char *argv[])
 		{
 			myImage.scanLine(i)[j] = 0;
 		}
+	}
+
+	for(int i = 0; i < glob_height; ++i)
+	{
+		for(int j = 0; j < glob_width; ++j)
+		{
+			std::cout << (imglob_src[i * glob_width + j] != imglob_dil[i * glob_width + j] ? 1 : 0);
+		}
+
+		std::cout << "\n";
 	}
 
 	for(int i = 0; i < glob_height; ++i)

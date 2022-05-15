@@ -1,5 +1,0 @@
-C:/Users/Georg/Documents/hw2_window/CMakeFiles/hw2_window.dir
-C:/Users/Georg/Documents/hw2_window/CMakeFiles/edit_cache.dir
-C:/Users/Georg/Documents/hw2_window/CMakeFiles/rebuild_cache.dir
-C:/Users/Georg/Documents/hw2_window/CMakeFiles/hw2_window_autogen_timestamp_deps.dir
-C:/Users/Georg/Documents/hw2_window/CMakeFiles/hw2_window_autogen.dir
