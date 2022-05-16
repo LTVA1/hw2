@@ -259,9 +259,27 @@ int ImageProcess::erosion()
 	return 0;
 }
 
+std::vector<int>* ImageProcess::is_pixel_in_list(int index)
+{
+	for (int i = 0; i < contours.size(); ++i)
+	{
+		std::vector<int> contour = contours[i];
+
+		if ((std::find(contour.begin(), contour.end(), index) != contour.end()))
+		{
+			return &contours[i];
+		}
+	}
+
+	return nullptr;
+}
+
+//                             x,   y
 std::list<std::list<std::pair<int, int>>> ImageProcess::getListContours()
 {
-	this->contours.clear(); //очистка, в буфере могли остаться пиксели с предыдущего вызова
+	contours.clear(); //очистка, в буфере могли остаться пиксели с предыдущего вызова
+
+	dilotation(); //на всякий случай, если до этого не вызывалась дилатация
 
 	for (int i = 0; i < srcImg->width * srcImg->height; i++)
 	{
@@ -354,19 +372,4 @@ std::list<std::list<std::pair<int, int>>> ImageProcess::getListContours()
 	}
 
 	return countors_final;
-}
-
-std::vector<int> *ImageProcess::is_pixel_in_list(int index)
-{
-	for (int i = 0; i < contours.size(); ++i)
-	{
-		std::vector<int> contour = contours[i];
-
-		if ((std::find(contour.begin(), contour.end(), index) != contour.end()))
-		{
-			return &contours[i];
-		}
-	}
-
-	return nullptr;
 }
